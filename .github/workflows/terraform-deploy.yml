@@ -44,11 +44,7 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: Initialize Terraform
-        run: |
-          terraform init \
-            -backend-config="bucket=${{ secrets.S3_BUCKET_NAME }}" \
-            -backend-config="region=${{ secrets.AWS_REGION }}" \
-            -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE_NAME }}"
+        run: terraform init 
         working-directory: terraform/
 
       - name: Validate Terraform Configuration
