@@ -6,8 +6,20 @@ data "aws_s3_bucket" "terraform_state" {
   bucket = "tf-serverless-shipping-tracking-system"
 }
 
-data "aws_dynamodb_table" "app-state" {
-  name = "app-state"
+resource "aws_dynamodb_table" "terraform_lock" {
+  name         = "terraform-state-lock"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+
+  tags = {
+    Name        = "Terraform Lock Table"
+    Environment = "Production"
+  }
 }
 
 terraform {
@@ -15,7 +27,7 @@ terraform {
     bucket         = "tf-serverless-shipping-tracking-system"
     key            = "terraform/state.tfstate"
     region         = "eu-central-1"
-    dynamodb_table = "app-state"
+    dynamodb_table = "terraform-state-lock"
     encrypt        = true
   }
 }
