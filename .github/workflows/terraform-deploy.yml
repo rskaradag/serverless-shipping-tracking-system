@@ -28,6 +28,33 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          cd lambda/
+          pip install -r requirements.txt -t .
+
+      - name: Run Unit Tests
+        run: |
+          cd lambda/
+          pytest test_handler.py --disable-warnings
+
+      - name: Package Lambda Function
+        run: |
+          cd lambda/
+          zip -r create_tracking_lambda.zip .
+          mv create_tracking_lambda.zip ../terraform/
+
+      - name: Upload Lambda Package as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lambda-package
+          path: terraform/create_tracking_lambda.zip
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:

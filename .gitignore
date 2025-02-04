@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+.env/
+
+# pytest cache
+test-results/
+pytest_cache/
+
+# Terraform specific
+.terraform/
+terraform.tfstate*
+*.tfstate.backup
+
+# AWS credentials and secrets
+*.pem
+*.key
+*.secrets
+
+# Logs and temp files
+*.log
+.DS_Store
+*.swp
+
+# Ignore lambda zip files
+lambda/*.zip
