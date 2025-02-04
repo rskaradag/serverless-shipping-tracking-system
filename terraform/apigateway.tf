@@ -32,7 +32,7 @@ resource "aws_api_gateway_deployment" "tracking_api_deployment" {
 }
 
 resource "aws_lambda_function" "create_tracking" {
-  filename      = "lambda/create_tracking_lambda.zip"
+  filename      = "lambda/create_tracking/create_tracking_lambda.zip"
   function_name = "createTrackingHandler"
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"

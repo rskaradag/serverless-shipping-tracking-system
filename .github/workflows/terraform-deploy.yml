@@ -51,13 +51,12 @@ jobs:
         run: |
           cd lambda/create_tracking
           zip -r create_tracking_lambda.zip .
-          mv create_tracking_lambda.zip ../lambda
 
       - name: Upload Lambda Package as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: lambda-package
-          path: lambda/create_tracking_lambda.zip
+          path: lambda/create_tracking/create_tracking_lambda.zip
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
