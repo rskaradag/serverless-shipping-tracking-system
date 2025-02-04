@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -42,6 +42,7 @@ jobs:
         run: |
           cd lambda/
           pytest test_handler.py --disable-warnings
+        continue-on-error: false
 
       - name: Package Lambda Function
         run: |
@@ -50,7 +51,7 @@ jobs:
           mv create_tracking_lambda.zip ../terraform/
 
       - name: Upload Lambda Package as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: lambda-package
           path: terraform/create_tracking_lambda.zip
