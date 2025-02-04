@@ -42,13 +42,17 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: terraform/
 
       - name: Validate Terraform Configuration
         run: terraform validate
+        working-directory: terraform/
 
       - name: Plan Terraform Changes
         run: terraform plan -out=tfplan
+        working-directory: terraform/
 
       - name: Apply Terraform Changes
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
+        working-directory: terraform/
