@@ -41,7 +41,7 @@ jobs:
       - name: Run Unit Tests
         run: |
           cd lambda/create_tracking
-          pytest test_handler.py --disable-warnings
+          python -m pytest test_handler.py --disable-warnings
         continue-on-error: false
 
       - name: Package Lambda Function
