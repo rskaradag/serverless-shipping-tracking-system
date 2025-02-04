@@ -35,18 +35,18 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd lambda/
+          cd lambda/create_tracking
           pip install -r requirements.txt -t .
 
       - name: Run Unit Tests
         run: |
-          cd lambda/
+          cd lambda/create_tracking
           pytest test_handler.py --disable-warnings
         continue-on-error: false
 
       - name: Package Lambda Function
         run: |
-          cd lambda/
+          cd lambda/create_tracking
           zip -r create_tracking_lambda.zip .
           mv create_tracking_lambda.zip ../terraform/
 
