@@ -38,6 +38,9 @@ jobs:
           cd lambda/create_tracking
           pip install -r requirements.txt -t .
 
+      - name: Check Python Version
+        run: python --version
+
       - name: Run Unit Tests
         run: |
           cd lambda/create_tracking
