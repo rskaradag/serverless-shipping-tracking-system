@@ -92,7 +92,7 @@ jobs:
       - name: Apply Terraform Changes
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-            terraform apply -auto-approve tfplan \
+            terraform apply -auto-approve \
               -var aws_region=$AWS_REGION \
               -var s3_bucket_name=$S3_BUCKET_NAME \
               -var dynamodb_table_name=$DYNAMODB_TABLE_NAME
