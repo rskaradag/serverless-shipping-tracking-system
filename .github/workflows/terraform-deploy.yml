@@ -20,9 +20,8 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
-      TF_VAR_S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-      TF_VAR_DYNAMODB_TABLE_NAME: ${{ secrets.DYNAMODB_TABLE_NAME }}
-      TF_VAR_AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+      DYNAMODB_TABLE_NAME: ${{ secrets.DYNAMODB_TABLE_NAME }}
 
     steps:
       - name: Checkout Repository
@@ -82,10 +81,19 @@ jobs:
         working-directory: terraform/
 
       - name: Plan Terraform Changes
-        run: terraform plan -out=tfplan
+        run: |
+           terraform plan -out=tfplan \
+             -var $aws_region=$AWS_REGION \
+             -var $s3_bucket_name=$S3_BUCKET_NAME \
+             -var $dynamodb_table_name=$DYNAMODB_TABLE_NAME
+
         working-directory: terraform/
 
       - name: Apply Terraform Changes
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve tfplan
+        run: |
+            terraform apply -auto-approve tfplan \
+              -var $aws_region=$AWS_REGION \
+              -var $s3_bucket_name=$S3_BUCKET_NAME \
+              -var $dynamodb_table_name=$DYNAMODB_TABLE_NAME
         working-directory: terraform/
