@@ -18,14 +18,17 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
     }
 }
 
-resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "app-state"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "LockID"
+resource "aws_dynamodb_table" "app-state" {
+  name         = "app-state"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
 
   attribute {
     name = "LockID"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
