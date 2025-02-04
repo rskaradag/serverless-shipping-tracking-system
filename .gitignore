@@ -10,7 +10,7 @@ __pycache__/
 # pytest cache
 test-results/
 pytest_cache/
-*create_tracking.zip
+*create_tracking_lambda.zip
 
 # Terraform specific
 .terraform/

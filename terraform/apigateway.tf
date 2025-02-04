@@ -32,29 +32,13 @@ resource "aws_api_gateway_deployment" "tracking_api_deployment" {
 }
 
 resource "aws_lambda_function" "create_tracking" {
-  filename      = "lambda/create_tracking/create_tracking_lambda.zip"
+  filename      = "create_tracking_lambda.zip"
   function_name = "createTrackingHandler"
-  role          = aws_iam_role.lambda_role.arn
+  role          = data.aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "python3.9"
 }
 
-resource "aws_iam_role" "lambda_role" {
+data "aws_iam_role" "lambda_role" {
   name = "lambda_execution_role"
-  
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
 }
