@@ -50,7 +50,7 @@ jobs:
         run: |
           cd lambda/create_tracking
           zip -r create_tracking_lambda.zip .
-          my create_tracking_lambda.zip ../../terraform
+          mv create_tracking_lambda.zip ../../terraform
 
       - name: Upload Lambda Package as Artifact
         uses: actions/upload-artifact@v4
