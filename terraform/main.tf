@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 data "aws_s3_bucket" "terraform_state" {
-  bucket = "tfstate"
+  bucket = "tf-serverless-shipping-tracking-system"
 }
 
 data "aws_dynamodb_table" "app-state" {
@@ -12,10 +12,10 @@ data "aws_dynamodb_table" "app-state" {
 
 terraform {
   backend "s3" {
-    bucket         = data.aws_s3_bucket.terraform_state.bucket
+    bucket         = "tf-serverless-shipping-tracking-system"
     key            = "terraform/state.tfstate"
-    region         = var.aws_region
-    dynamodb_table = data.aws_dynamodb_table.app-state.name
+    region         = "eu-central-1"
+    dynamodb_table = "app-state"
     encrypt        = true
   }
 }
