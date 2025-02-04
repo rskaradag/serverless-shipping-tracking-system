@@ -83,9 +83,9 @@ jobs:
       - name: Plan Terraform Changes
         run: |
            terraform plan -out=tfplan \
-             -var $aws_region=$AWS_REGION \
-             -var $s3_bucket_name=$S3_BUCKET_NAME \
-             -var $dynamodb_table_name=$DYNAMODB_TABLE_NAME
+             -var aws_region=$AWS_REGION \
+             -var s3_bucket_name=$S3_BUCKET_NAME \
+             -var dynamodb_table_name=$DYNAMODB_TABLE_NAME
 
         working-directory: terraform/
 
@@ -93,7 +93,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
             terraform apply -auto-approve tfplan \
-              -var $aws_region=$AWS_REGION \
-              -var $s3_bucket_name=$S3_BUCKET_NAME \
-              -var $dynamodb_table_name=$DYNAMODB_TABLE_NAME
+              -var aws_region=$AWS_REGION \
+              -var s3_bucket_name=$S3_BUCKET_NAME \
+              -var dynamodb_table_name=$DYNAMODB_TABLE_NAME
         working-directory: terraform/
