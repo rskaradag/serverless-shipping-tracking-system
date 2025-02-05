@@ -1,7 +1,7 @@
 import json
 import re
 import sys
-sys.path.append("lambda/")  # Lambda dizinini path'e ekle
+sys.path.append("lambda/")  
 from handler import handler
 
 def test_lambda_handler_success():

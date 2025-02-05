@@ -5,3 +5,4 @@ variable "aws_region" {
 }
 variable "dynamodb_table_name" {}
 variable "s3_bucket_name" {}
+variable "sqs_queue_name" {}
