@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lambda-package
-          path: lambda/create_tracking/create_tracking_lambda.zip
+          path: terraform/create_tracking_lambda.zip
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
