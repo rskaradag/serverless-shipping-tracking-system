@@ -2,6 +2,7 @@ import json
 import random
 import string
 import boto3
+import os
 
 # Initialize AWS SQS client
 sqs = boto3.client("sqs")

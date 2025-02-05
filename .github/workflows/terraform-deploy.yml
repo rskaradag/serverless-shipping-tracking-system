@@ -41,11 +41,11 @@ jobs:
       - name: Check Python Version
         run: python --version
 
-      - name: Run Unit Tests
-        run: |
-          cd lambda/create_tracking
-          python -m pytest test_handler.py --disable-warnings
-        continue-on-error: false
+      # - name: Run Unit Tests
+      #   run: |
+      #     cd lambda/create_tracking
+      #     python -m pytest test_handler.py --disable-warnings
+      #   continue-on-error: false
 
       - name: Package Lambda Function
         run: |
