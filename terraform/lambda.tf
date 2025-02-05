@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "create_tracking" {
   filename      = "create_tracking_lambda.zip"
   function_name = "createTrackingHandler"
-  role          = data.aws_iam_role.lambda_role.arn
+  role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "python3.9"
 

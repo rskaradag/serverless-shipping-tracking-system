@@ -28,17 +28,5 @@ resource "aws_api_gateway_integration" "lambda_integration" {
 resource "aws_api_gateway_deployment" "tracking_api_deployment" {
   depends_on  = [aws_api_gateway_integration.lambda_integration]
   rest_api_id = aws_api_gateway_rest_api.shipping_api.id
-  stage_name  = "prod"
-}
 
-resource "aws_lambda_function" "create_tracking" {
-  filename      = "create_tracking_lambda.zip"
-  function_name = "createTrackingHandler"
-  role          = data.aws_iam_role.lambda_role.arn
-  handler       = "index.handler"
-  runtime       = "python3.9"
-}
-
-data "aws_iam_role" "lambda_role" {
-  name = "lambda_execution_role"
 }
