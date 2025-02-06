@@ -30,10 +30,6 @@ def handler(event, context):
 
         email = body.get("email")
         username = body.get("username")
-        return {
-            "statusCode": 400,
-            "body": json.dumps({"order_number": order_number})
-        }
         if not order_number:
             return {
                 "statusCode": 400,
@@ -54,6 +50,7 @@ def handler(event, context):
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=SQS_QUEUE_URL,
+            MessageGroupId="shipping-tracking-system",
             MessageBody=json.dumps(message_payload)
         )
 
