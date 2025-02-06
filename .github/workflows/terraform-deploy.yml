@@ -47,18 +47,30 @@ jobs:
       #     python -m pytest test_handler.py --disable-warnings
       #   continue-on-error: false
 
-      - name: Package Lambda Function
+      - name: Package Tracking Lambda Function
         run: |
           cd lambda/create_tracking
           zip -r create_tracking_lambda.zip .
           mv create_tracking_lambda.zip ../../terraform
 
-      - name: Upload Lambda Package as Artifact
+      - name: Upload Tracking Lambda Package as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: lambda-package
           path: terraform/create_tracking_lambda.zip
 
+      - name: Package Consumer Lambda Function
+        run: |
+          cd lambda/consumer
+          zip -r consumer.zip .
+          mv consumer.zip ../../terraform
+
+      - name: Upload Consumer Lambda Package as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lambda-package
+          path: terraform/Consumer.zip
+          
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
