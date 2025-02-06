@@ -86,14 +86,14 @@ resource "aws_api_gateway_stage" "shipping_api" {
   }
 }
 
-# resource "aws_api_gateway_method_settings" "all" {
-#   rest_api_id = aws_api_gateway_rest_api.shipping_api.id
-#   stage_name  = "dev"
-#   method_path = "*/*"
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.shipping_api.id
+  stage_name  = "dev"
+  method_path = "*/*"
 
-#   settings {
-#     metrics_enabled    = true
-#     data_trace_enabled = true
-#     logging_level      = "INFO"
-#   }
-# }
+  settings {
+    metrics_enabled    = true
+    data_trace_enabled = true
+    logging_level      = "INFO"
+  }
+}
