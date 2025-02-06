@@ -3,6 +3,9 @@ import random
 import string
 import boto3
 import os
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 # Initialize AWS SQS client
 sqs = boto3.client("sqs")
@@ -19,12 +22,18 @@ def handler(event, context):
     Lambda handler function for generating a tracking ID based on order number.
     """
     try:
+        logger.info("Received event: " + json.dumps(event))
+
         # Parse the JSON body from the event
         body = json.loads(event.get("body", "{}"))
         order_number = body.get("order_number")
+
         email = body.get("email")
         username = body.get("username")
-
+        return {
+            "statusCode": 400,
+            "body": json.dumps({"order_number": order_number})
+        }
         if not order_number:
             return {
                 "statusCode": 400,
