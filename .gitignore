@@ -12,6 +12,7 @@ venv/
 test-results/
 pytest_cache/
 *create_tracking_lambda.zip
+*consumer.zip
 
 # Terraform specific
 .terraform/
