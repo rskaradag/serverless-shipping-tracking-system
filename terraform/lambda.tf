@@ -13,21 +13,6 @@ resource "aws_lambda_function" "create_tracking" {
   }
 }
 
-resource "aws_lambda_permission" "apigw_lambda" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.create_tracking.function_name
-  principal     = "apigateway.amazonaws.com"
-}
-
-resource "aws_lambda_permission" "allow_sqs_invoke_lambda" {
-  statement_id  = "AllowExecutionFromSQS"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.consumer.function_name
-  principal     = "sqs.amazonaws.com"
-  source_arn    = aws_sqs_queue.order_queue.arn
-}
-
 # Create an IAM role for the Lambda function
 resource "aws_iam_role" "lambda_role" {
   name = "lambda_role_serverless"
@@ -120,3 +105,19 @@ resource "aws_lambda_event_source_mapping" "consumer" {
   event_source_arn = aws_sqs_queue.order_queue.arn
   function_name    = aws_lambda_function.consumer.arn
 }
+
+resource "aws_lambda_function" "list_lambda" {
+  function_name   = "listHandler"
+  runtime         = "python3.9"
+  handler         = "list.handler"
+  role            = aws_iam_role.lambda_role.arn
+  filename        = "list.zip"
+  source_code_hash = data.archive_file.zip_the_python_code_list.output_base64sha256
+}
+
+data "archive_file" "zip_the_python_code_list" {
+  type        = "zip"
+  source_file = "../lambda/list/list.py"
+  output_path = "${path.module}/list.zip"
+}
+
