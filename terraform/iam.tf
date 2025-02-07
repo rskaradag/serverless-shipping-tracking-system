@@ -39,23 +39,21 @@ resource "aws_iam_policy" "api" {
         "Resource": "*"
       },
       {
-        "Effect": "Allow",
-        "Action": [
-          "sqs:GetQueueUrl",
-          "sqs:SendMessageBatch",
-          "sqs:SendMessage",
-          "sqs:ListQueueTags"
-        ],
-        "Resource": "${aws_sqs_queue.order_queue.arn}"
-      },
-      {
         "Effect" : "Allow",
-        "Action" : "lambda:InvokeFunction",
+        "Action": [
+          "lambda:InvokeFunction",
+          "lambda:CreateEventSourceMapping",
+          "lambda:UpdateEventSourceMapping"   
+        ],
         "Resource" : "*"
       }
     ]
 }
 EOF
+}
+
+resource "aws_api_gateway_account" "api_gateway_account" {
+  cloudwatch_role_arn = aws_iam_role.api.arn
 }
 
 resource "aws_iam_role_policy_attachment" "api" {
