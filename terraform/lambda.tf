@@ -63,10 +63,9 @@ resource "aws_iam_policy" "lambda_policy" {
         Resource = aws_sns_topic.tracking_updates.arn
       },
       {
-        Effect   = "Allow"
-        Principal= [{"Service": "apigateway.amazonaws.com"}],
-        Action="lambda:InvokeFunction",
-        Resource="arn:aws:apigateway:*:*:*"
+        Effect="Allow",
+        Action="apigateway:*",
+        Resource="*"
       }
     ]
   })
